@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="Free Web tutorials">
     <meta name="keywords" content="web developer, ui designer, designer, react">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="textStyle.css">
@@ -75,24 +75,27 @@
       </div>
       <div class="inner-frame">
         <div class="greeting" id="greeting">
-          <p class="text">Hi! My name is </p>
-          <p id="my-name" class="my-name">
+          <p class="text mobile">Hi! My name is <span>
+              <strong>Tatuu!</strong>
+          </span></p>
+          <p class="text screen">Hi! My name is </p>
+          <p id="my-name" class="my-name screen">
             Thanaphon
           </p>
-          <svg id="close-btn" class="close-btn" height="20px" width="20px">
+          <svg id="close-btn" class="close-btn" height="20px" width="30px">
             <path id="path-top" class="close-btn-path" d="M5 10 L10 10"/>
             <path id="path-mid" class="close-btn-path" d="M10 10 L10 10"/>
             <path id="path-bottom" class="close-btn-path" d="M10 10 L15 10"/>
           </svg>
           <div class="about-me">
+            <p>
+              <span class="string fullname">Thanaphon</span> <span class="string tag">first</span>
+            </p>
+            <p>
+              <span class="string fullname">Chaysawat</span> <span class="string tag">last</span>
+            </p>
             <p class="firstchild">
-              <span class="string firstname">Thanaphon</span> <span class="string tag">first</span>
-            </p>
-            <p>
-              <span class="string lastname">Chaysawat</span> <span class="string tag">last</span>
-            </p>
-            <p>
-              <span class="string nickname">Tatuu</span> <span class="string tag">nickname</span>
+              <span class="string nickname">Tatuu / Paul</span> <span class="string tag">nickname</span>
             </p>
             <p class="firstchild">
               <span class="string title">Web developer</span>
@@ -113,7 +116,7 @@
               <span class="string skills">NodeJS, Bootstrap,</span> 
             </p>
             <p>
-              <span class="string skills">and Firebase</span> <span class="string tag">language</span>
+              <span class="string skills">and Firebase</span> <span class="string tag">skills</span>
             </p>
             <p class="skills">
               <span class="string skills">VS Code, Postman,</span>
@@ -124,6 +127,12 @@
             <p>
               <span class="string skills">Ai, and 3ds max</span> <span class="string tag">tools</span>
             </p>
+            <div id="more-btn" class="more-arrow">
+              <svg class="arrow" height="60px" width="30px">
+                <path id="arrow-head" d="M25 30 L30 30 L25 30"/>
+                <path id="arrow-stick" d="M30 30 L30 30"/>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="nav-bar">
@@ -138,17 +147,24 @@
           </svg>
         </div>
 
-        <p id="pos-x" class="posX-value">_000</p>
-        <p id="pos-y" class="posY-value">_000</p>
+        <p id="pos-x" class="posX-value screen">_000</p>
+        <p id="pos-y" class="posY-value screen">_000</p>
 
         <div id="pause" class="btn-pause">
           <svg height="5px" width="60px">
             <path class="timer-bar-bg" d="M0 2 L60 2"/>
             <path id="timer-bar" class="timer-bar" d="M0 2 L0 2"/>
           </svg>
-          <p id="pause-info">freeze</p>
+          <p id="pause-info">click to freeze</p>
+        </div>
+        <div class="socials">
+          <svg height="5px" width="400px">
+            <path class="end-line" d="M0 2 L300 2"/>
+          </svg>
         </div>
       </div>
+
+      
     </div>
     
     <script src="style.js" type="text/javascript"></script>

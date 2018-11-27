@@ -27,11 +27,6 @@ window.onresize = function resize() {
   midNavbar = ((navbarRight - navbarLeft)/2 + navbarLeft)/window.innerWidth*100;
 };
 
-document.onscroll = function scrollNaja() {
-  let positionY = document.getElementById('scrollY');
-  positionY.innerHTML = window.pageYOffset;
-}
-
 // var btn = document.getElementById("scroll-btn");
 // btn.onclick = function scrollNow() {
 //   console.log("Clicked");
@@ -65,11 +60,15 @@ var orbitFront = document.getElementById("front");
 var polyOne = document.getElementById("polygon-1");
 var polyFront = document.getElementById("polygon-front");
 
+var pauseButton = document.getElementById("pause");
+var pauseInfo = document.getElementById("pause-info");
+
+var timer;
 
 targetObject.onmouseover = function trigger() {
   var path = document.getElementById("timer-bar");
-  path.style.stroke = "rgb(97, 173, 235)";
-  path.setAttribute("d", `M0 2 L0 2`);
+  showInfo();
+
   targetObject.onmousemove = function handleMouseMove(event) {
     event = event || window.event;
   
@@ -87,7 +86,6 @@ targetObject.onmouseover = function trigger() {
     orbitEight.setAttribute("style", `left: ${50 - offX*8}%; top: ${50 - offY*8}%;`);
     orbitNine.setAttribute("style", `left: ${50 - offX*(-1)}%; top: ${50 - offY*(-1)}%;`);
 
-
     polyOne.setAttribute("style", `left: ${50 - offX*5.5}%; top: ${50 - offY*5.5}%;`)
     polyFront.setAttribute("style", `left: ${50 - offX*9.5}%; top: ${50 - offY*9.5}%;`)
 
@@ -95,11 +93,17 @@ targetObject.onmouseover = function trigger() {
 
     posX.textContent = `_${event.clientX}`;
     posY.textContent = `_${event.clientY}`;
+
+    path.style.stroke = "rgb(97, 173, 235)";
+    path.setAttribute("d", `M0 2 L0 2`);
+    pauseInfo.textContent = "click to freeze";
+    
+    clearInterval(timer);
   }
 }
 
 targetObject.onmouseleave = function removeEvent() {
-  
+  hideInfo();
   var objectsArray = [
     orbitOne,
     orbitTwo,
@@ -121,14 +125,21 @@ targetObject.onmouseleave = function removeEvent() {
   posY.textContent = "_000";
 }
 
-// targetObject.onmousemove = () => {};
+function showInfo() {
+  pauseInfo.style.transform = `translate(0,0)`;
+  pauseInfo.style.opacity = 1;
+};
+function hideInfo() {
+  pauseInfo.style.transform = `translate(0,-5px)`;
+  pauseInfo.style.opacity = 0;
+};
 
-var button = document.getElementById("pause");
-button.onclick = function pauseAnimation() {
+targetObject.onclick = function pauseAnimation() {
   var path = document.getElementById("timer-bar");
   var delay = 3000;
   
   path.setAttribute("d", `M0 2 L60 2`);
+  pauseInfo.textContent = "freezing";
 
   var objectsArray = [
     orbitOne,
@@ -145,10 +156,12 @@ button.onclick = function pauseAnimation() {
     orbitFront,
 
   ];
-  var timer = setInterval(() => {
+  timer = setInterval(() => {
     this.handle = objectsArray.forEach(element => {
       path.style.stroke = "rgb(198, 230, 14)";
+      pauseInfo.textContent = "freeze";
       element.style.animationPlayState = "paused";
+      showInfo();
       clearInterval(timer);
     });
   }, delay);
@@ -206,16 +219,21 @@ var xPathMid = document.getElementById("path-mid");
 var xPathBottom = document.getElementById("path-bottom");
 var strings = document.getElementsByClassName("string");
 
+var arrowHead = document.getElementById("arrow-head");
+var arrowStick = document.getElementById("arrow-stick");
+
 myName.onmouseover = function toArrow() {
   xPathTop.setAttribute("d", `M5 10 L10 15`);
   xPathMid.setAttribute("d", `M10 5 L10 15`);
   xPathBottom.setAttribute("d", `M10 15 L15 10`);
   underlinePath.setAttribute("d", `M${pathTo[2].left} 2 L${pathTo[2].right} 2`);
 }
-myName.onmouseleave = function resetPath() {
+function resetPathOnmouseLeave() {
   initXbtn();
   underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
 };
+
+myName.onmouseleave = resetPathOnmouseLeave;
 
 function initXbtn() {
   xPathTop.setAttribute("d", `M5 10 L10 10`);
@@ -224,12 +242,12 @@ function initXbtn() {
 }
 
 function openAboutMe() {
-  if(window.innerWidth < 800) {
-    targetObject.style.left = `70vw`;
+  if(window.innerWidth < 500) {
     targetObject.style.bottom = `-10vh`;
   }
   aboutActive = true;
   aboutMe.style.height = "100%";
+  aboutMe.style.backgroundColor = "rgb(255, 255, 255)";
 
   myName.style.top = "-22px";
   myName.style.opacity = 0;
@@ -239,11 +257,23 @@ function openAboutMe() {
   xPathMid.setAttribute("d", `M10 10 L10 10`);
   xPathBottom.setAttribute("d", `M5 15 L15 5`);
 
+  showArrow();
+
   underlinePath.setAttribute("d", `M${pathTo[2].left} 2 L${pathTo[2].right} 2`);
 
   for(var p = 0; p < strings.length; p++) {
     strings.item(p).style.bottom = "0px";
+    strings.item(p).style.opacity = 1;
   }
+}
+
+function showArrow() {
+  arrowHead.setAttribute("d", `M25 25 L30 30 L25 35`);
+  arrowStick.setAttribute("d", `M10 30 L30 30`);
+}
+function hideArrow() {
+  arrowHead.setAttribute("d", `M25 30 L30 30 L25 30`);
+  arrowStick.setAttribute("d", `M30 30 L30 30`);
 }
 
 myName.onclick = openAboutMe;
@@ -279,12 +309,15 @@ function closeAboutMe() {
   xPathTop.setAttribute("d", `M5 10 L10 10`);
   xPathBottom.setAttribute("d", `M10 10 L15 10`);
 
-  myName.onmouseleave = initXbtn;
+  hideArrow();
+
+  myName.onmouseleave = resetPathOnmouseLeave;
 
   targetObject.style.left = "50vw";
 
   for(var p = 0; p < strings.length; p++) {
-    strings.item(p).style.bottom = "-2.2rem";
+    strings.item(p).style.bottom = "-2.5rem";
+    strings.item(p).style.opacity = 0;
   }
 }
 

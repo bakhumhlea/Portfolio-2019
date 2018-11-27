@@ -1,3 +1,73 @@
+@media only screen and (max-width: 414px) {
+  .app {
+    height: max-content;
+  }
+  div.inner-frame {
+    z-index: 200;
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    font-size: 12px;
+    
+  }
+  div.nav-bar {
+    width: 100%;
+  }
+  div.nav-bar div.nav-items {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  div.nav-bar svg {
+    display: none;
+  }
+  span.nav-item, a.nav-item {
+    color: rgb(32, 32, 32);
+    text-decoration: none;
+    padding: 8px;
+    margin: 0 auto 0 auto;
+  }
+  p.screen {
+    display: none;
+  }
+  p.mobile {
+    display: block;
+  }
+  div.greeting {
+    z-index: 500;
+    width: 100%;
+    top: 2rem;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  div.greeting p.text, div.greeting p.my-name, div.greeting svg, div.greeting div {
+    position: relative;
+    top: initial;
+    left: initial;
+  }
+  div.greeting svg {
+    margin-top: 20px;
+  }
+  div.greeting div.about-me {
+    /* border-right: 1px dashed rgb(104, 222, 243);
+    padding-right: 40px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  div.btn-pause {
+    display: none;
+  }
+  div.obj-container {
+    z-index: 100;
+  }
+}
+.mobile {
+  display: none;
+}
 .inner-frame {
   font-family: 'Rajdhani';
   position: absolute;
@@ -24,7 +94,6 @@
   right: 0;
   transform: translate(25%, -70%) rotate(-90deg);
 }
-
 .nav-bar {
   font-family: 'Rajdhani';
   letter-spacing: 0.1rem;
@@ -40,7 +109,7 @@
   margin: 0 0px 0 20px;
 }
 .btn-pause {
-  cursor: pointer;
+  cursor: crosshair;
   position: absolute;
   height: 30px;
   bottom: 0;
@@ -70,10 +139,10 @@
   opacity: 0;
   transition: 0.2s 0s all cubic-bezier(0.175, 0.885, 0.20, 1);
 }
-.btn-pause:hover p {
+/* .btn-pause:hover p {
   transform: translate(0,0);
   opacity: 1;
-}
+} */
 
 .underline {
   stroke: rgb(97, 173, 235);
@@ -84,6 +153,17 @@
   stroke: rgb(134, 134, 134);
   stroke-width: 1;
   transition: 1s 0s all cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+.socials {
+  position: absolute;
+  height: 30px;
+  bottom: 0;
+  left: 0;
+  transform: translate(0, 70%);
+}
+.socials .end-line {
+  stroke: rgba(56, 45, 156, 0.5);
+  stroke-width: 1px;
 }
 .greeting {
   font-family: 'Rajdhani';
@@ -96,6 +176,12 @@
   top: 0;
   left: 0;
   overflow: hidden;
+  transition: 1s 0s all cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+@media screen and (max-height: 674px) {
+  div.greeting {
+    overflow-y: scroll;
+  }
 }
 .greeting .text {
   position: absolute;
@@ -115,7 +201,7 @@
   cursor: pointer;
   position: absolute;
   top: -1px;
-  left: 230px;
+  left: 75%;
   box-sizing: content-box;
   stroke: rgb(7, 7, 7);
   stroke-width: 1;
@@ -124,18 +210,48 @@
 .close-btn .close-btn-path {
   transition: 0.3s 0.3s all cubic-bezier(0.175, 0.885, 0.32, 1);
 }
+.arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-35%, -50%);
+  box-sizing: content-box;
+  fill: transparent;
+  stroke: rgb(7, 7, 7);
+  stroke-width: 1;
+  animation: bouncingHorizon 1s cubic-bezier(0.23, 1, 0.320, 1) infinite;
+  /* animation-play-state: paused; */
+}
+@keyframes bouncingHorizon {
+  0% {
+    transform: translate(-35%, -50%);
+  }
+  50% {
+    transform: translate(-25%, -50%);
+  }
+  100% {
+    transform: translate(-35%, -50%);
+  }
+}
+.arrow path {
+  transition: 0.6s 0.2s all cubic-bezier(0.175, 0.885, 0.32, 1);
+}
 .about-me {
   position: relative;
   top: 20px;
+  
   margin: 20px 0;
   padding: 0 0;
+  transition: 0.3s 0s all cubic-bezier(0.175, 0.885, 0.32, 1);
+  background-color: rgba(255, 255, 255, 0);
 }
 .about-me p {
   overflow: hidden;
 }
 .about-me p span {
   position: relative;
-  bottom: -2rem;
+  bottom: -2.5rem;
 }
 .about-me p.firstchild {
   margin-top: 16px;
@@ -148,9 +264,13 @@
   font-weight: 900;
 }
 .string {
+  opacity: 0;
   font-weight: 900;
   font-size: 1.4rem;
   transition: 0.6s 0.2s all cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+.string.fullname {
+  font-size: 2.5rem;
 }
 .tag {
   text-transform: lowercase;
