@@ -1,0 +1,70 @@
+.polygon {
+  display: inline-block;
+  width: max-content;
+  height: max-content;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-62px, -60px);
+  border: 0px dashed rgba(15, 120, 161, 0.856);
+  border-radius: 50%;
+  position: absolute;
+  transition: 0.1s 0s all linear;
+}
+.polygon#polygon-1 {
+  transform: translate(-61px, -60px) scale(0.5);
+  animation: polygonRotate 10s linear infinite;
+}
+.polygon#polygon-front {
+  z-index: 100;
+  transform: translate(-51px, -50px) scale(0.3) rotate(0deg);
+  animation: polygonRotateTwo 12s linear infinite;
+}
+#polygon-front svg .triangle {
+  fill: rgba(255, 255, 255, 0);
+  stroke: rgb(15, 180, 158);
+  stroke-width: 2;
+  stroke-dasharray: 0px;
+  stroke-dashoffset: 0px
+}
+.polygon svg polygon {
+  fill: rgba(255, 255, 255, 0);
+  stroke: rgb(101, 20, 148);
+  stroke-width: 2;
+  stroke-dasharray: 1px;
+  stroke-dashoffset: 1px
+}
+.polygon svg path.light {
+  fill: rgb(255, 255, 255);
+  stroke: rgb(101, 20, 148);
+  stroke-width: 1;
+  stroke-dasharray: 1px;
+}
+.polygon svg path.shade-light {
+  fill: rgb(240, 240, 240);
+  stroke: rgb(101, 20, 148);
+  stroke-width: 1;
+  stroke-dasharray: 1px;
+}
+.polygon svg path.shade-darker {
+  fill: rgb(218, 218, 218);
+  stroke: rgb(101, 20, 148);
+  stroke-width: 1;
+  stroke-dasharray: 1px;
+}
+@keyframes polygonRotate {
+  0% {
+    transform: translate(-61px, -60px) scale(0.5) rotate(45deg);
+  }
+  100% {
+    transform: translate(-61px, -60px) scale(0.5) rotate(405deg);
+  }
+}
+@keyframes polygonRotateTwo {
+  0% {
+    transform: translate(-51px, -50px) scale(0.4) rotate(0deg);
+  }
+  100% {
+    transform: translate(-51px, -50px) scale(0.4) rotate(-360deg);
+  }
+}

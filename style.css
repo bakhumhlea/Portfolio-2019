@@ -1,0 +1,405 @@
+@font-face {
+  font-family: 'Allerta Stencil', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Allerta+Stencil');
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Rubik','Playfair Display','Quicksand', 'Rajdhani','Allerta Stencil', sans-serif, serif;
+  font-size: 16px;
+}
+.app {
+  height: 100vh;
+}
+.btn {
+  cursor: pointer;
+  position: fixed;
+  width: 120px;
+  height: 60px;
+  left: 50vw;
+  transform: translateX(-60px);
+  bottom: 0px;
+}
+/** Rotating Object */
+.obj-container {
+  z-index: 200;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-30px, -30px);
+  transition: 0.6s 0.2s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  transform: translate(-15px, -15px);
+  border: 1px dotted rgb(91, 231, 121);
+  border-radius: 50%;
+  transition: 0.3s 0s border ease-in-out;
+  animation: orbittingCW 4s linear infinite;
+}
+.spot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-5px, -5px);
+  border: 1px solid rgba(255, 255, 255, 0);
+  position: absolute;
+  transition: 0.3s 0.7s all ease-in-out;
+}
+.obj-container:hover .spot {
+  animation: scaleCircle 2.5s linear infinite;
+}
+.orbit {
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-30px, -30px);
+  border-radius: 50%;
+  position: absolute;
+  transition: 0.1s 0s all linear;
+}
+.orbit#orbit-3 {
+  border: 1px solid rgba(8, 214, 25, 0.7);
+  border-right: 1px solid rgb(163, 37, 37);
+  animation: orbittingCW 4s linear infinite;
+}
+.obj-container:hover #orbit-3 .spot {
+  width: 40px;
+  height: 40px;
+  transform: translate(-20px, -20px);
+  animation: scaleCircleTwo 2.5s linear infinite;
+}
+.obj-container:hover #front {
+  z-index: 90;
+  width: 30px;
+  height: 30px;
+  border: 1px dotted rgba(0, 225, 255, 0.7);
+  transform: translate(-15px, -15px);
+  /* animation: scaleCircleOne 2s linear infinite; */
+}
+.bottom {
+  border: 1px solid rgba(255, 0, 149, 0.7);
+  border-bottom: 2px dotted rgb(99, 27, 89);
+  /* animation: orbittingCCW 12s linear infinite; */
+}
+.left {
+  border: 1px solid rgba(0, 225, 255, 0.7);
+  border-left: 2px dotted rgb(24, 121, 85);
+  /* animation: orbittingCW 7s linear infinite; */
+}
+.right {
+  border: 1px solid rgba(0, 225, 255, 0.7);
+  border-right: 1px dotted rgb(136, 6, 6);
+  /* animation: orbittingCCW 9s linear infinite; */
+}
+.top {
+  border: 1px solid rgba(255, 0, 0, 0.7);
+  border-top: 1px dashed rgb(50, 68, 173);
+  /* animation: orbittingCW 10s linear infinite; */
+}
+.object {
+  cursor: pointer;
+  position: relative;
+  left: 20%;
+  top: 3px;
+  width: 2px;
+  height: 2px;
+  border: 1px solid rgba(255, 0, 0, 0.7);
+  border-radius: 50%;
+}
+.obj-container #orbit-5 .object {
+  position: relative;
+  left: 80%;
+  top: 19px;
+  width: 10px;
+  height: 10px;
+  border: 0px solid black;
+  border-radius: 50%;
+  animation: blinking 2s linear infinite;
+  transition: 0.2s 0s all linear;
+}
+.obj-container #orbit-5 .object .sub-object {
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  width: 30px;
+  height: 30px;
+  border: 1px dotted rgb(158, 158, 255);
+  border-top: 1px solid rgb(139, 67, 255);
+  background-color: transparent;
+  border-radius: 50%;
+  animation: rotate 5s linear infinite;
+  transition: 0.2s 0s all linear;
+}
+.obj-container #orbit-2 .object {
+  position: absolute;
+  left: 20%;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  border: 0px solid black;
+  border-top: 1px dotted rgb(139, 67, 255);
+  border-radius: 50%;
+  animation: blinking 2s linear infinite;
+  transition: 0.2s 0s all linear;
+}
+.obj-container #orbit-1 {
+  width: 90px;
+  height: 90px;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.obj-container #orbit-2 {
+  width: 120px;
+  height: 120px;
+  animation: orbittingCW 9s linear infinite;
+}
+.obj-container #orbit-3 {
+  width: 150px;
+  height: 150px;
+  animation: orbittingCCW 7s linear infinite;
+}
+.obj-container #orbit-4 {
+  width: 170px;
+  height: 170px;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.obj-container #orbit-5 {
+  width: 200px;
+  height: 200px;
+  border-spacing: 4px;
+  animation: orbittingCCW 8s linear infinite;
+}
+.obj-container #orbit-6 {
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.obj-container #orbit-7 {
+  width: 230px;
+  height: 230px;
+  border: 1px solid rgb(58, 233, 116);
+  border-top: 1px dashed rgb(62, 182, 15);
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.obj-container #orbit-8 {
+  z-index: 100;
+  width: 120px;
+  height: 120px;
+  border: 1px dashed rgb(58, 233, 116);
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.obj-container #orbit-9 {
+  width: 100px;
+  height: 100px;
+  border: 1px dotted rgb(175, 219, 93);
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.obj-container .orbit svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50.5%, -50%);
+  stroke: rgb(45, 45, 117);
+  stroke-width: 1px;
+  fill: transparent;
+}
+.obj-container #front {
+  border: 1px dashed rgb(58, 233, 116);
+}
+@keyframes scaleCircle {
+  0% {
+    width: 10px;
+    height: 10px;
+    transform: translate(-5px, -5px);
+    border: 1px solid rgba(255, 255, 255, 0);
+  }
+  80% {
+    width: 50px;
+    height: 50px;
+    transform: translate(-26px, -25px);
+    border: 1px solid rgb(34, 172, 165);
+  }
+  100% {
+    width: 60px;
+    height: 60px;
+    transform: translate(-30px, -30px);
+    border: 1px solid rgba(255, 255, 255, 0);
+  }
+}
+@keyframes scaleCircleOne {
+  0% {
+    width: 30px;
+    height: 30px;
+    transform: translate(-15px, -15px);
+    border: 1px solid rgba(249, 250, 253, 0);
+  }
+  50% {
+    width: 60px;
+    height: 60px;
+    transform: translate(-30px, -30px);
+    border: 1px solid rgb(226, 163, 26);
+  }
+  100% {
+    width: 90px;
+    height: 90px;
+    transform: translate(-45px, -45px);
+    border: 1px solid rgba(252, 251, 255, 0);
+  }
+}
+@keyframes scaleCircleTwo {
+  0% {
+    width: 40px;
+    height: 40px;
+    transform: translate(-20px, -20px);
+    border: 1px solid rgba(249, 250, 253, 0);
+  }
+  50% {
+    width: 70px;
+    height: 70px;
+    transform: translate(-35px, -35px);
+    border: 1px solid rgb(148, 28, 228);
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    transform: translate(-50px, -50px);
+    border: 1px solid rgba(252, 251, 255, 0);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+@keyframes orbittingCW {
+  0% {
+    border-top-color: rgba(228, 83, 57, 0.856);
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    border-top-color: rgba(199, 57, 228, 0.856);
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes orbittingCCW {
+  0% {
+    border-bottom-color: rgba(15, 120, 161, 0.856);
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    border-bottom-color: rgba(245, 84, 35, 0.856);
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+@keyframes blinking {
+  0% {
+    background-color: rgb(182, 204, 59);
+    opacity: 1;
+    border-style: solid;
+    transform: scale(1);
+  }
+  25% {
+    background-color: rgba(228, 83, 57, 1);
+    transform: scale(0.6);
+  }
+  75% {
+    background-color: rgb(220, 45, 255);
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    background-color: rgb(32, 164, 252);
+    opacity: 1;
+    border-style: double;
+    transform: scale(1);
+  }
+}
+@keyframes colorMorph {
+  0% {
+    color: rgb(32, 164, 252);
+  }
+  25% {
+    color: rgb(231, 35, 94);
+  }
+  75% {
+    color: rgb(15, 155, 211);
+  }
+  100% {
+    color: rgb(32, 164, 252);
+  }
+}
+
+.square {
+  width: 4px;
+  height: 100%;
+  position: relative;
+  left: 60px;
+  background-color: black;
+  transition: 0.3s 0s all ease-in-out;
+}
+.btn .square i {
+  position: absolute;
+  right: 4px;
+  display: block;
+  transform: translateY(15px);
+  font-size: 30px;
+  transition: 0.3s 0s all ease-in-out;
+}
+.btn:hover .square i {
+  color: white;
+  transition: 0.3s 0s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.btn:hover .square {
+  width: 60px;
+  background-color: black;
+  /* animation: btnAnimate 0.3s ease-in-out forwards paused;
+  animation-play-state: running; */
+}
+@keyframes moveRight {
+  0% {
+    right: 60px;
+  }
+  100% {
+    right: 0px;
+    color: white;
+  }
+}
+@keyframes moveLeft {
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: 60px;
+    color: black;
+  }
+}
+@keyframes btnAnimate{
+  0% {
+    width: 4px;
+  }
+  100% {
+    width: 60px;
+    background-color: black;
+  }
+}
