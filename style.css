@@ -86,14 +86,7 @@ body {
   transform: translate(-20px, -20px);
   animation: scaleCircleTwo 2.5s linear infinite;
 }
-.obj-container:hover #front {
-  z-index: 90;
-  width: 30px;
-  height: 30px;
-  border: 1px dotted rgba(0, 225, 255, 0.7);
-  transform: translate(-15px, -15px);
-  /* animation: scaleCircleOne 2s linear infinite; */
-}
+
 .bottom {
   border: 1px solid rgba(255, 0, 149, 0.7);
   border-bottom: 2px dotted rgb(99, 27, 89);
