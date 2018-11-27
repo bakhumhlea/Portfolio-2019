@@ -279,11 +279,12 @@ function initXbtn() {
 }
 
 function openAboutMe() {
-  if(window.innerWidth < 500) {
-    targetObject.style.bottom = `-10vh`;
+  if(window.innerHeight < 660) {
+    aboutMe.style.height = "auto";
+  } else {
+    aboutMe.style.height = "100%";
   }
   aboutActive = true;
-  aboutMe.style.height = "100%";
   aboutMe.style.backgroundColor = "rgb(255, 255, 255)";
 
   myName.style.top = "-22px";
