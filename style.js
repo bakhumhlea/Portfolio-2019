@@ -1,40 +1,57 @@
+// window
 var pageCenterX;
 var pageCenterY;
+var currentWindowWidth;
+var currentWindowHeight;
+var windowWidthChange;
 
+// Navbar
 var navbar = document.getElementById("nav-items");
 var navbarLeft = navbar.getBoundingClientRect().left;
 var navbarRight = navbar.getBoundingClientRect().right;
 var midNavbar;
+var pathTo = [];
+var underline = document.getElementById("underline-svg");
+var navbarWidth = navbarRight - navbarLeft;
+var underlinePath = document.getElementById("underline-path");
 
+// About
+var dashSvg = document.getElementById("dash");
+var dash = document.getElementById("dash-path");
+
+// Initial state
+var pageState = {
+  projectsActive : false,
+  learnActive : false,
+  aboutActive : false,
+  contact : false
+}
 
 window.onload = function onloadNow(event) {
-  var vhValueText = document.getElementById("vh-value");
-  var vwValueText = document.getElementById("vw-value");
+  currentWindowHeight = window.innerHeight;
+  currentWindowWidth = window.innerWidth;
 
-  // vhValueText.innerHTML = window.innerHeight;
-  // vwValueText.innerText = window.innerWidth;
+  navbarLeft = navbar.getBoundingClientRect().left;
+  navbarRight = navbar.getBoundingClientRect().right;
+  midNavbar = ((navbarRight - navbarLeft)/2 + navbarLeft)/window.innerWidth*100;
 
   pageCenterX = window.innerWidth/2;
   pageCenterY = window.innerHeight/2;
 
-  // console.log(`page center X:${pageCenterX} Y:${pageCenterY}`);
-  
+  // Navbar underline
+  underline.setAttribute("width", `${navbarWidth}px`);
+  underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
 }
 
 window.onresize = function resize() {
+  currentWindowHeight = window.innerHeight;
+  currentWindowWidth = window.innerWidth;
+  
   navbarLeft = navbar.getBoundingClientRect().left;
   navbarRight = navbar.getBoundingClientRect().right;
   midNavbar = ((navbarRight - navbarLeft)/2 + navbarLeft)/window.innerWidth*100;
 };
 
-// var btn = document.getElementById("scroll-btn");
-// btn.onclick = function scrollNow() {
-//   console.log("Clicked");
-//   window.scrollTo({
-//     "behavior": "smooth",
-//     "top": 2000,
-//   });
-// }
 var offsetCenterX = function(eventX, pageCenX, perspectiveIndex, positionOffsetX){
   return (eventX - pageCenX)/perspectiveIndex + positionOffsetX;
 };
@@ -108,7 +125,6 @@ targetObject.onmouseover = function trigger() {
     targetObject.onmousemove = handleMouseMove;
   }
 }
-
 targetObject.onmouseleave = function removeEvent() {
   hideInfo();
   var objectsArray = [
@@ -192,172 +208,158 @@ targetObject.onclick = function pauseAnimation() {
     }, delay);
   }
 }
-
-var pathTo = [];
-
-var underline = document.getElementById("underline-svg");
-var navbarWidth = navbarRight - navbarLeft;
-underline.setAttribute("width", `${navbarWidth}px`);
-
-var underlinePath = document.getElementById("underline-path");
-window.onload = () => {
-  underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
+var findNavItemBounding = () => {
+  var positionsArray = [];
+  for(var i = 0; i < navbar.childElementCount; i++) {
+    var item = {
+      left: navbar.children.item(i).getBoundingClientRect().left - navbarLeft,
+      right: navbar.children.item(i).getBoundingClientRect().right - navbarLeft - 2
+    }
+    navbar.children.item(i).onmouseover = () => {
+      underlinePath.setAttribute("d", `M${item.left - navbarLeft} 2 L${item.right - navbarLeft} 2`);
+    }
+    positionsArray.push(item);
+  }
+  return positionsArray;
 }
 
-for(var i = 0; i < navbar.childElementCount; i++) {
-  var item = {
-    left: navbar.children.item(i).getBoundingClientRect().left - navbarLeft,
-    right: navbar.children.item(i).getBoundingClientRect().right - navbarLeft - 2
-  }
-  navbar.children.item(i).onmouseover = () => {
-    underlinePath.setAttribute("d", `M${item.left - navbarLeft} 2 L${item.right - navbarLeft} 2`);
-  }
-  pathTo.push(item);
-}
+pathTo = findNavItemBounding();
 
-navbar.children.item(0).onmouseover = function() {
+var ulProjects = function() {
   underlinePath.setAttribute("d", `M${pathTo[0].left} 2 L${pathTo[0].right} 2`);
 };
-navbar.children.item(1).onmouseover = function() {
+var ulLearn = function() {
   underlinePath.setAttribute("d", `M${pathTo[1].left} 2 L${pathTo[1].right} 2`);
 };
-
-function ulAbout() {
+var ulAbout = function() {
   underlinePath.setAttribute("d", `M${pathTo[2].left} 2 L${pathTo[2].right} 2`);
 };
-navbar.children.item(2).onmouseover = ulAbout;
-
-navbar.children.item(3).onmouseover = function() {
+var ulContact = function() {
   underlinePath.setAttribute("d", `M${pathTo[3].left} 2 L${pathTo[3].right} 2`);
 };
 
-function hideUnderlinePath() {
-  underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
-}
+navbar.children.item(0).onmouseover = ulProjects;
+navbar.children.item(1).onmouseover = ulLearn;
+navbar.children.item(2).onmouseover = ulAbout;
+navbar.children.item(3).onmouseover = ulContact;
 
-navbar.onmouseleave = () => {
-  if (aboutActive) {
+var underlining = function() {
+  if (pageState.aboutActive) {
+    toggleCloseBtn();
     ulAbout();
+  } else if (pageState.projectsActive) {
+    ulProjects();
   } else {
-    hideUnderlinePath();
+    toggleCloseBtn();
+    underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
   }
 };
 
+navbar.onmouseleave = underlining;
+
 // About Me
-var aboutActive = false;
 var aboutLink = document.getElementById("about-link");
 var aboutMe = document.getElementById("greeting");
 var myName = document.getElementById("my-name");
+
 var closeSign = document.getElementById("close-btn");
 var xPathTop = document.getElementById("path-top");
 var xPathMid = document.getElementById("path-mid");
 var xPathBottom = document.getElementById("path-bottom");
+
 var strings = document.getElementsByClassName("string");
 
 var arrowHead = document.getElementById("arrow-head");
 var arrowStick = document.getElementById("arrow-stick");
 
-var dash = document.getElementById("dash-path");
+var moreBtn = document.getElementById("more-btn");
 
-myName.onmouseover = function toArrow() {
+var toggleCloseBtn = function() {
+  if (pageState.aboutActive) {
+    xPathTop.setAttribute("d", `M5 5 L15 15`);
+    xPathMid.setAttribute("d", `M10 10 L10 10`);
+    xPathBottom.setAttribute("d", `M5 15 L15 5`);
+  } else {
+    xPathTop.setAttribute("d", `M5 10 L10 10`);
+    xPathMid.setAttribute("d", `M10 10 L10 10`);
+    xPathBottom.setAttribute("d", `M10 10 L15 10`);
+  }
+}
+
+myName.onmouseover = function() {
   xPathTop.setAttribute("d", `M5 10 L10 15`);
   xPathMid.setAttribute("d", `M10 5 L10 15`);
   xPathBottom.setAttribute("d", `M10 15 L15 10`);
-  underlinePath.setAttribute("d", `M${pathTo[2].left} 2 L${pathTo[2].right} 2`);
+  ulAbout();
 }
-function resetPathOnmouseLeave() {
-  initXbtn();
-  underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
-};
+myName.onmouseleave = toggleCloseBtn;
 
-myName.onmouseleave = resetPathOnmouseLeave;
+moreBtn.onmouseover = function moreBtnFX() {
 
-function initXbtn() {
-  xPathTop.setAttribute("d", `M5 10 L10 10`);
-  xPathMid.setAttribute("d", `M10 10 L10 10`);
-  xPathBottom.setAttribute("d", `M10 10 L15 10`);
 }
-
-function openAboutMe() {
-  if(window.innerHeight < 660) {
+var openAboutMe = function() {
+  pageState.aboutActive = true;
+  if(window.innerHeight < 700) {
     aboutMe.style.height = "auto";
+    aboutMe.style.overflowY = "scroll";
   } else {
     aboutMe.style.height = "100%";
   }
-  aboutActive = true;
+  aboutMe.style.padding = "20px 20px;"
   aboutMe.style.backgroundColor = "rgb(255, 255, 255)";
 
   myName.style.top = "-22px";
   myName.style.opacity = 0;
-  myName.onmouseleave = null;
 
   closeSign.style.cursor = "pointer";
 
-  xPathTop.setAttribute("d", `M5 5 L15 15`);
-  xPathMid.setAttribute("d", `M10 10 L10 10`);
-  xPathBottom.setAttribute("d", `M5 15 L15 5`);
-
-  dash.setAttribute("d", `M0 10 L170 10`);
-
-  underlinePath.setAttribute("d", `M${pathTo[2].left} 2 L${pathTo[2].right} 2`);
+  dash.setAttribute("d", `M0 10 L140 10`);
 
   for(var p = 0; p < strings.length; p++) {
     strings.item(p).style.bottom = "0px";
     strings.item(p).style.opacity = 1;
   }
+  underlining();
 }
 
-myName.onclick = openAboutMe;
-
-aboutLink.onclick = () => {
-  if (!aboutActive) {
-    openAboutMe();
-    aboutActive = true;
-    navbar.onmouseleave = null;
-  } else {
-    closeAboutMe();
-    aboutActive = false;
-    navbar.onmouseleave = hideUnderlinePath;
-  }
-};
-
-function closeAboutMe() {
-  var timer = setInterval(() => {
-    var handle = aboutMe.style.height = "30px";
-    clearInterval(timer);
-  }, 400);
-
-  aboutActive = false;
-
-  underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
+var closeAboutMe = function() {
+  pageState.aboutActive = false;
 
   closeSign.style.cursor = "default";
 
-  myName.style.fontFamily = "Rajdhani";
-  myName.style.fontSize = "inherit";
   myName.style.left = "130px";
   myName.style.top = "0";
   myName.style.opacity = 1;
 
-  xPathTop.setAttribute("d", `M5 10 L10 10`);
-  xPathBottom.setAttribute("d", `M10 10 L15 10`);
-
-  dash.setAttribute("d", `M170 10 L170 10`);
-
-  myName.onmouseleave = resetPathOnmouseLeave;
+  dash.setAttribute("d", `M110 10 L140 10`);
 
   targetObject.style.left = "50vw";
 
+  var timer = setInterval(() => {
+    aboutMe.style.height = "60px";
+    if(window.innerHeight < 700) {
+      aboutMe.style.overflowY = "hidden";
+    }
+    clearInterval(timer);
+  }, 400);
   for(var p = 0; p < strings.length; p++) {
     strings.item(p).style.bottom = "-2.5rem";
     strings.item(p).style.opacity = 0;
   }
+  underlining();
 }
 
-closeSign.onclick = closeAboutMe;
-
-var moreBtn = document.getElementById("more-btn");
-
-moreBtn.onmouseover = function moreBtnFX() {
-
+var toggleAboutPage = function() {
+  if (!pageState.aboutActive) {
+    hidePage(pageState.projectsActive, closeProjects);
+    hidePage(pageState.learnActive, null);
+    hidePage(pageState.contactActive, null);
+    openAboutMe();
+  } else {
+    closeAboutMe();
+  }
 }
+
+myName.onclick = toggleAboutPage;
+aboutLink.onclick = toggleAboutPage;
+closeSign.onclick = toggleAboutPage;
