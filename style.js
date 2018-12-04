@@ -333,17 +333,20 @@ myName.onmouseleave = function() {
   underlining();
 }
 var toggleMoreBtn = function(opacity) {
+  moreBtn.style.display = opacity === 1? "block" : "none";
   moreBtn.style.opacity = opacity;
 }
 var openAboutMe = function() {
   pageState.aboutActive = true;
   if(window.innerHeight < 700) {
-    aboutMe.style.height = "auto";
+    aboutMe.style.height = "100vh";
     aboutMe.style.overflowY = "scroll";
   } else {
     aboutMe.style.height = "100%";
   }
-
+  if(window.innerWidth < 500) {
+    targetObject.style.zIndex = 0;
+  }
   targetObject.style.opacity = 0.2;
   targetObject.style.transform = `scale(1) translate(-50%, -50%)`;
 
@@ -369,6 +372,7 @@ var openAboutMe = function() {
 var closeAboutMe = function() {
   pageState.aboutActive = false;
   
+  targetObject.style.zIndex = 400;
   targetObject.style.opacity = 1;
   targetObject.style.transform = `scale(1) translate(-50%, -50%)`;
 

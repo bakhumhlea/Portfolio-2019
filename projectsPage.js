@@ -2,13 +2,15 @@ var projectsLink = document.getElementById("projects-link");
 var projectsPage = document.getElementById("projects-page");
 var projectDisplay = document.getElementById("project-display");
 projectsLink.onclick = toggleProjectsPage;
+var windowWidth = window.innerWidth;
 
 var openProjects = function() {
   pageState.projectsActive = true;
   projectsPage.style.opacity = 1;
   projectsPage.style.width = "100%";
-  targetObject.style.top = `9vh`;
   targetObject.style.left = `50vw`;
+  targetObject.style.zIndex = 0;
+  targetObject.style.top = `50vh`;
   targetObject.style.transform = `scale(0.2) translate(-50%, -50%)`;
   ulProjects();
 }
@@ -18,6 +20,7 @@ var closeProjects = function() {
   projectsPage.style.width = "0px";
   targetObject.style.top = `50vh`;
   targetObject.style.left = `50vw`;
+  targetObject.style.zIndex = 400;
   targetObject.style.transform = `scale(1) translate(-50%, -50%)`;
   underlining();
 }

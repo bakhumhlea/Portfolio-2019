@@ -4,7 +4,7 @@
   }
   div.inner-frame {
     z-index: 200;
-    position: relative;
+    position: fixed;
     width: 100%;
     height: 100%;
     font-size: 12px;
@@ -292,6 +292,38 @@
 .about-me::-webkit-scrollbar {
   display: none;
 }
+@media only screen and (max-width: 480px) {
+  div.text-left {
+    display: block !important;
+    float: unset !important;
+    width: 100% !important;
+    padding: 0 !important;
+    text-align: center !important;
+  }
+  div.text-right {
+    display: block !important;
+    float: unset !important;
+    width: 100% !important;
+    padding: 10px 0 !important;
+    text-align: center !important;
+  }
+  span.mobile {
+    display: none;
+  }
+  span.string {
+    display: block;
+    font-size: 1rem;
+  }
+  span.string.intro {
+    display: block;
+    font-size: initial;
+    font-weight: 500;
+    width: 100% !important;
+    margin: 20px 0 !important;
+    color: rgb(119, 171, 204);
+    text-align: center !important;
+  }
+}
 .about-me .text-left {
   float: left;
   width: 50%;
@@ -306,6 +338,7 @@
   text-align: right;
 }
 .more-arrow {
+  display: none;
   cursor: pointer;
   position: relative;
   font-size: 0.8rem;
@@ -316,7 +349,7 @@
   bottom: 20px;
   transform: translateX(-50%);
   opacity: 0;
-  transition: 0.5s 0s all cubic-bezier(0.175, 0.885, 0.32, 1);
+  transition: 0.5s 0.4s all cubic-bezier(0.175, 0.885, 0.32, 1);
 }
 .more-arrow .arrow {
   display: block;

@@ -1,12 +1,62 @@
+@media only screen and (max-width: 480px) {
+  div.projects-page {
+    background-color: white !important;
+    height: 100vh;
+  }
+  div.project-display {
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: block !important;
+    height: max-content !important;
+  }
+  div.col-top {
+    display: block !important;
+  }
+  div.col-bottom {
+    display: block !important;
+  }
+  div.project-image {
+    width: 100% !important;
+    margin: 20px 0;
+  }
+  img.image {
+    top: 50% !important;
+    width: 90vw !important;
+  }
+  h2.project-motto {
+    height: auto !important;
+    font-size: 36px !important;
+    line-height: 36px !important;
+  }
+  p.project-desc {
+    margin: 20px 0;
+    position: relative;
+    font-size: 16px !important;
+    width: 90vw !important;
+    white-space: unset !important;
+  }
+  span.btn-go-site {
+    position: relative !important;
+    display: block !important;
+    margin: 20px 0;
+    width: 100% !important;
+    transform: translate(0%, 0px) !important;
+  }
+  span.btn-go-site:hover {
+    border-radius: initial !important;
+    animation: none !important;
+  }
+}
 .projects-page {
   /* display: none; */
   position: relative;
   top: 40px;
   width: 0px;
-  height: 500px;
+  height: 70vh;
   padding: 20px 20px;
   opacity: 0;
   overflow-y: scroll;
+  background-color: white;
   transition: 0.4s 0.2s all cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .projects-page::-webkit-scrollbar {
@@ -23,7 +73,7 @@
   transform: translate(50%,0);
   /* margin: 10px 0 50px 0; */
   overflow: hidden;
-  transition: 0.6s 0.4s all cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: 0.4s 0.4s all cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .col-top {
   display: grid;
@@ -42,29 +92,42 @@
 }
 .project-motto {
   position: relative;
-  top: -7px;
-  color: rgb(0, 0, 0);
+  color: rgb(0, 81, 90);
   width: max-content;
   height: 225px;
   font-size: 64px;
   line-height: 60px;
   white-space: nowrap;
 }
+@media screen and (max-width: 1340px) {
+  h2.project-motto {
+    top: 0px;
+    font-size: 54px;
+    line-height: 54px;
+  }
+}
+@media screen and (max-width: 1040px) {
+  h2.project-motto {
+    top: 0px;
+    font-size: 44px;
+    line-height: 44px;
+  }
+}
 .project-display .project-image {
   display: block;
-  width: 100%;
+  width: 100vw;
   white-space: nowrap;
   position: relative;
   right: 0px;
-  height: 225px;
-  /* border: 1px dotted #46e8fd; */
-  background-color: beige;
+  height: 200px;
+  background-color: white;
   overflow: hidden;
 }
 .project-display .project-image .image {
-  width: 100%;
+  /* width: 100%; */
   position: relative;
-  top: 50%;
+  top: 0;
+  right: 0px;
   transform: translateY(-50%) scale(1.1);
 }
 .project-display h1.project-title {
@@ -75,29 +138,52 @@
   right: 0px;
   margin: 8px 0;
 }
-.project-display p.project-desc {
+.project-display .project-desc {
   position: relative;
   font-size: 20px;
-  /* width: 50%; */
-  /* white-space: nowrap; */
+  width: 40vw;
+  overflow: hidden;
+  white-space: wrap;
 }
 .project-display p.project-desc.detail {
+  width: 100%;
   font-weight: 600;
 }
-.project-display p.project-desc.status {
-  width: max-content;
+.project-display .project-desc.status {
+  width: 100%;
   margin-top: 20px;
 }
-.project-display .btn.go-site {
+.project-display .btn-go-site {
+  cursor: pointer;
   position: absolute;
-  display: none;
-  width: 50px;
-  height: 50px;
-  /* float: right; */
+  display: inline-block;
+  width: 40px;
+  height: 40px;
   right: 0;
   bottom: 0;
-  background-color: #E36900;
+  transform: translate(-50%, -5px);
+  transition: 0.4s 0s all cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background-color: rgb(0, 81, 90);
 }
-.project-display .btn.go-site svg {
+.project-display .btn-go-site svg {
+  position: relative;
+  display: block;
   margin: auto;
+  top: 5px;
+}
+.project-display .btn-go-site:hover {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  animation: bouncing 1s cubic-bezier(0.23, 1, 0.320, 1) infinite;
+}
+@keyframes bouncing {
+  0% {
+    transform: translate(-50%, -5px);
+  }
+  50% {
+    transform: translate(-55%, -5px);
+  }
+  100% {
+    transform: translate(-50%, -5px);
+  }
 }
