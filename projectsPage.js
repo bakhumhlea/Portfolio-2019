@@ -6,15 +6,17 @@ projectsLink.onclick = toggleProjectsPage;
 var openProjects = function() {
   pageState.projectsActive = true;
   projectsPage.style.opacity = 1;
-  projectsPage.style.width = "60%";
-  targetObject.style.left = `${midNavbar}vw`;
-  targetObject.style.transform = `scale(0.7) translate(-50%, -50%)`;
+  projectsPage.style.width = "100%";
+  targetObject.style.top = `9vh`;
+  targetObject.style.left = `50vw`;
+  targetObject.style.transform = `scale(0.2) translate(-50%, -50%)`;
   ulProjects();
 }
 var closeProjects = function() {
   pageState.projectsActive = false;
   projectsPage.style.opacity = 0;
   projectsPage.style.width = "0px";
+  targetObject.style.top = `50vh`;
   targetObject.style.left = `50vw`;
   targetObject.style.transform = `scale(1) translate(-50%, -50%)`;
   underlining();

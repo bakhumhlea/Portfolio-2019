@@ -85,16 +85,29 @@ var path = document.getElementById("timer-bar");
 
 var timer;
 var freezed = false;
+var offX;
+var offY
 
 function handleMouseMove(event) {
   clearInterval(timer);
-  pauseInfo.textContent = "click to freeze";
+  pauseInfo.textContent = "click object to freeze";
 
   event = event || window.event;
 
-  var offX = 50 - (50*event.clientX)/(window.innerWidth/2);
-  var offY = 50 - (50*event.clientY)/(window.innerHeight/2);
-
+  offX = 50 - (50*event.clientX)/(window.innerWidth/2);
+  offY = 50 - (50*event.clientY)/(window.innerHeight/2);
+  if (offX < -15) {
+    offX = ((offX-(-15))/3)-15;
+  }
+  if (offX > 15) {
+    offX = ((offX - 15)/3)+15;
+  }
+  if (offY < -12.5) {
+    offY = ((offY-(-12.5))/4)-12.5;
+  }
+  if (offY > 12.5) {
+    offY = ((offY - 12.5)/4)+12.5;
+  }
   orbitOne.setAttribute("style", `left: ${50 - offX*1}%; top: ${50 - offY*1}%;`);
   orbitTwo.setAttribute("style", `left: ${50 - offX*3}%; top: ${50 - offY*3}%;`);
   orbitThree.setAttribute("style", `left: ${50 - offX*5}%; top: ${50 - offY*5}%;`);
@@ -117,15 +130,19 @@ function handleMouseMove(event) {
   path.setAttribute("d", `M0 2 L0 2`);
 }
 
-targetObject.onmouseover = function trigger() {
-  showInfo();
+window.onmousemove = function trigger() {
+  if (-30 < offX < 30 && -30 < offY < 30) {
+    showInfo();
+  } else {
+    hideInfo();
+  }
   if (freezed) {
     return
   } else {
-    targetObject.onmousemove = handleMouseMove;
+    handleMouseMove();
   }
 }
-targetObject.onmouseleave = function removeEvent() {
+function playAnimation() {
   hideInfo();
   var objectsArray = [
     orbitOne,
@@ -152,19 +169,21 @@ targetObject.onmouseleave = function removeEvent() {
     posY.textContent = "_000";
   }
 }
+targetObject.onmouseleave = playAnimation;
 
 function showInfo() {
   pauseInfo.style.transform = `translate(0,0)`;
   pauseInfo.style.opacity = 1;
 };
 function hideInfo() {
+  console.log("hide");
   pauseInfo.style.transform = `translate(0,-5px)`;
   pauseInfo.style.opacity = 0;
 };
 
-targetObject.onclick = function pauseAnimation() {
+function pauseAnimation() {
   var path = document.getElementById("timer-bar");
-  var delay = 3000;
+  var delay = 2000;
   var objectsArray = [
     orbitOne,
     orbitTwo,
@@ -183,7 +202,7 @@ targetObject.onclick = function pauseAnimation() {
 
   if (freezed) {
     path.setAttribute("d", `M0 2 L0 2`);
-    pauseInfo.textContent = "click to freeze";
+    pauseInfo.textContent = "click object to freeze";
     path.style.stroke = "rgb(97, 173, 235)";
     freezed = false;
     targetObject.onmousemove = null;
@@ -192,7 +211,8 @@ targetObject.onclick = function pauseAnimation() {
     });
     hideInfo();
   } else {
-    path.setAttribute("d", `M0 2 L60 2`);
+    path.setAttribute("d", `M0 2 L80 2`);
+    path.style.transitionDuration = `${delay/1000}s`;
     pauseInfo.textContent = "freezing";
 
     timer = setInterval(() => {
@@ -208,6 +228,9 @@ targetObject.onclick = function pauseAnimation() {
     }, delay);
   }
 }
+
+targetObject.onclick = pauseAnimation;
+
 var findNavItemBounding = () => {
   var positionsArray = [];
   for(var i = 0; i < navbar.childElementCount; i++) {
@@ -232,6 +255,7 @@ var ulLearn = function() {
   underlinePath.setAttribute("d", `M${pathTo[1].left} 2 L${pathTo[1].right} 2`);
 };
 var ulAbout = function() {
+  toArrow(true);
   underlinePath.setAttribute("d", `M${pathTo[2].left} 2 L${pathTo[2].right} 2`);
 };
 var ulContact = function() {
@@ -253,6 +277,7 @@ var underlining = function() {
     toggleCloseBtn();
     underlinePath.setAttribute("d", `M${navbarWidth} 2 L${navbarWidth} 2`);
   }
+  toArrow(false);
 };
 
 navbar.onmouseleave = underlining;
@@ -286,16 +311,29 @@ var toggleCloseBtn = function() {
   }
 }
 
+var toArrow = function(mouseEvent) {
+  if (!pageState.aboutActive) {
+    if (mouseEvent) {
+      xPathTop.setAttribute("d", `M5 10 L10 15`);
+      xPathMid.setAttribute("d", `M10 5 L10 15`);
+      xPathBottom.setAttribute("d", `M10 15 L15 10`);
+    } else {
+      xPathTop.setAttribute("d", `M5 10 L10 10`);
+      xPathMid.setAttribute("d", `M10 10 L10 10`);
+      xPathBottom.setAttribute("d", `M10 10 L15 10`);
+    }
+  }
+}
 myName.onmouseover = function() {
-  xPathTop.setAttribute("d", `M5 10 L10 15`);
-  xPathMid.setAttribute("d", `M10 5 L10 15`);
-  xPathBottom.setAttribute("d", `M10 15 L15 10`);
+  toArrow(true);
   ulAbout();
 }
-myName.onmouseleave = toggleCloseBtn;
-
-moreBtn.onmouseover = function moreBtnFX() {
-
+myName.onmouseleave = function() {
+  toArrow(false);
+  underlining();
+}
+var toggleMoreBtn = function(opacity) {
+  moreBtn.style.opacity = opacity;
 }
 var openAboutMe = function() {
   pageState.aboutActive = true;
@@ -305,6 +343,10 @@ var openAboutMe = function() {
   } else {
     aboutMe.style.height = "100%";
   }
+
+  targetObject.style.opacity = 0.2;
+  targetObject.style.transform = `scale(1) translate(-50%, -50%)`;
+
   aboutMe.style.padding = "20px 20px;"
   aboutMe.style.backgroundColor = "rgb(255, 255, 255)";
 
@@ -313,7 +355,9 @@ var openAboutMe = function() {
 
   closeSign.style.cursor = "pointer";
 
-  dash.setAttribute("d", `M0 10 L140 10`);
+  toggleMoreBtn(1);
+
+  dash.setAttribute("d", `M5 10 L140 10`);
 
   for(var p = 0; p < strings.length; p++) {
     strings.item(p).style.bottom = "0px";
@@ -324,8 +368,13 @@ var openAboutMe = function() {
 
 var closeAboutMe = function() {
   pageState.aboutActive = false;
+  
+  targetObject.style.opacity = 1;
+  targetObject.style.transform = `scale(1) translate(-50%, -50%)`;
 
   closeSign.style.cursor = "default";
+
+  toggleMoreBtn(0);
 
   myName.style.left = "130px";
   myName.style.top = "0";

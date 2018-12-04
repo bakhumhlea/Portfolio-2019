@@ -11,7 +11,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: 'Rubik','Playfair Display','Quicksand', 'Rajdhani','Allerta Stencil', sans-serif, serif;
+  font-family: 'Rubik','lora','Playfair Display','Quicksand', 'Rajdhani','Allerta Stencil', sans-serif, serif;
   font-size: 16px;
 }
 .app {
@@ -28,7 +28,7 @@ body {
 }
 /** Rotating Object */
 .obj-container {
-  z-index: 200;
+  z-index: 400;
   position: fixed;
   width: 60px;
   height: 60px;

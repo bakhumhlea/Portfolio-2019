@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="object-style.css">
     <link rel="stylesheet" href="style-projects.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Quicksand:300|Rajdhani:300|Rubik:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Playfair+Display|Quicksand|Rajdhani:300,400,500,600,700|Rubik" rel="stylesheet">
 
   </head>
   <body>
@@ -79,7 +79,7 @@
               Thanaphon
             </p>
             <svg id="dash" class="dash screen" height="20px" width="140px">
-              <path id="dash-path" class="dash-path" d="M100 10 L140 10"/>
+              <path id="dash-path" class="dash-path" d="M110 10 L140 10"/>
             </svg>
             <svg id="close-btn" class="close-btn" height="20px" width="20px">
               <path id="path-top" class="close-btn-path" d="M5 10 L10 10"/>
@@ -87,72 +87,67 @@
               <path id="path-bottom" class="close-btn-path" d="M10 10 L15 10"/>
             </svg>
             <div class="about-me">
-              <p>
-                <span class="string fullname">Thanaphon</span> <span class="string tag">first</span>
-              </p>
-              <p>
-                <span class="string fullname">Chaysawat</span> <span class="string tag">last</span>
-              </p>
-              <p class="firstchild">
-                <span class="string nickname">Tatuu / Paul</span> <span class="string tag">nickname</span>
-              </p>
-              <p class="firstchild">
-                <span class="string title">Web developer</span>
-              </p>
-              <p>
-                <span class="string title">UI designer</span> <span class="string tag">currently</span>
-              </p>
-              <p class="firstchild">
-                <span class="string location">San Francisco</span> <span class="string tag">based</span>
-              </p>
-              <p class="firstchild">
-                <span class="string skills">HTML, CSS,</span>
-              </p>
-              <p>
-                <span class="string skills">JavaScript, JQuery</span>
-              </p>
-              <p>
-                <span class="string skills">C#, Ruby on Rail, React,</span>
-              </p>
-              <p>
-                <span class="string skills">React & Redux, Angular</span>
-              </p>
-              <p>
-                <span class="string skills">NodeJS, Bootstrap,</span> 
-              </p>
-              <p>
-                <span class="string skills">and Firebase</span> <span class="string tag">skills</span>
-              </p>
-              <p class="firstchild">
-                <span class="string skills">VS Code, Postman,</span>
-              </p>
-              <p>
-                  <span class="string skills">XD, Sketch, PS, Ai, </span>
-                </p>
-              <p>
-                <span class="string skills">and 3ds max</span> <span class="string tag">tools</span>
-              </p>
-            </div>
-            <div id="more-btn" class="more-arrow">
-              <p class="more-aboutme">more about me</p>
-              <svg class="arrow" height="30px" width="30px">
-                <path id="arrow-head" d="M25 10 L30 15 L25 20"/>
-                <path id="arrow-stick" d="M10 15 L30 15"/>
-              </svg>
+              <div class="text-left">
+                  <p><span class="string fullname">Thanaphon</span> <span class="string tag">first</span></p>
+                  <p><span class="string fullname">Chaysawat</span> <span class="string tag">last</span></p>
+                  <p class="firstchild"><span class="string nickname">Tatuu / Paul</span> <span class="string tag">nickname</span></p>
+                  <p class="firstchild"><span class="string title">Web developer</span></p>
+                  <p><span class="string title">UI designer</span> <span class="string tag">currently</span></p>
+                  <p class="firstchild"><span class="string location">San Francisco</span> <span class="string tag">based</span></p>
+                  <p class="firstchild"><span class="string from">Chiang Mai,</span></p>
+                  <p><span class="string from">Thanland</span> <span class="string tag">from</span></p>
+              </div>
+              <div class="text-right">
+                  <p><span class="string intro">A San Francisco based <strong>Full stack web developer</strong> and <strong>self-though UI designer</strong> with a design background. Focusing on crafting design expereince and solving the problem to meet the users requirement. </span></p>
+                  <p class="firstchild"><span class="string skills">HTML, CSS,</span></p>
+                  <p><span class="string skills">JavaScript, JQuery</span></p>
+                  <p><span class="string skills">C#, Ruby on Rail, React,</span></p>
+                  <p><span class="string skills">React & Redux, Angular</span></p>
+                  <p><span class="string skills">NodeJS, Bootstrap,</span></p>
+                  <p><span class="string skills"><span class="string tag">skills</span> and Firebase</span></p>
+                  <p class="firstchild"><span class="string skills">VS Code, Postman,</span></p>
+                  <p><span class="string skills">XD, Sketch, PS, Ai, </span></p>
+                  <p><span class="string skills"><span class="string tag">tools</span> and 3ds max</span></p>
+              </div>
             </div>
         </div>
         </div>
 
         <div id="projects-page" class="projects-page">
           <div id="project-display" class="project-display">
-            <div class="image">
-              sample image here
+            <div class="col-top">
+              <div class="project-image">
+                <img src="img/app-01.jpg" alt="lokal aplication" class="image">
+              </div>
+              <h2 class="project-motto">EXPLORE<br/>
+                GREAT EXPERIENCE<br/>
+                NEAR YOU<br/>
+                with LOKALS
+              </h2>
             </div>
-            <h1 class="project-title">This is Lokals</h1>
-            <p class="project-desc">
-              Lokals is an advertising platform for local businesses from the range from
-              fine-crafted restaurant to boutique store. connacting you to your customer through you value.
-            </p>
+            <div class="col-bottom">
+              <p class="project-desc">
+                Lokals is an advertising platform for local businesses from the range from
+                fine-crafted restaurant to boutique store. connacting you to your customer through you value.
+              </p>
+              <div>
+                <p class="project-desc detail">
+                  UI/UX Design<br/>
+                  ReactJS, NodeJS, <br/>
+                  Mangoose, Bootstrap     
+                </p>
+                <p class="project-desc status">
+                  design: <strong>prototype</strong><br/>
+                  development: <strong>on progress</strong>
+                </p>
+                <div class="btn go-site">
+                  <svg class="btn-arrow" height="30px" width="30px">
+                    <path id="arrow-head" d="M20 10 L25 15 L20 20"/ fill="transparent" stroke="white">
+                    <path id="arrow-stick" d="M5 15 L25 15"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -162,13 +157,19 @@
         </div>
         
         <div id="pause" class="btn-pause">
-          <svg height="5px" width="60px">
-            <path class="timer-bar-bg" d="M0 2 L60 2"/>
+          <svg height="5px" width="80px">
+            <path class="timer-bar-bg" d="M0 2 L80 2"/>
             <path id="timer-bar" class="timer-bar" d="M0 2 L0 2"/>
           </svg>
-          <p id="pause-info">click to freeze</p>
+          <p id="pause-info">click object to freeze</p>
         </div>
-
+        <div class="more-arrow" id="more-btn" >
+          <p class="more-aboutme string">More about me before I became <strong>a web developer</strong></p>
+          <svg class="arrow" height="30px" width="30px">
+            <path id="arrow-head" d="M20 10 L25 15 L20 20"/>
+            <path id="arrow-stick" d="M5 15 L25 15"/>
+          </svg>
+        </div>
         <div class="watermark">
           <p>2018, Designed and Coded by Thannaphon Chaysawat.</p>
         </div>
